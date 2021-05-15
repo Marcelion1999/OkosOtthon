@@ -8,20 +8,25 @@
     require("monitor.php"); 
     $monitor_array = array();
     $value; $monitor_obj; $bojlerállapot; $klímaállapot;
-    get_monitor($sub_array);
+    $monitor_array = get_files($sub_array);
+    get_monitor($sub_array, $monitor_array);
     $elso;$masodik;
  }
-
- function get_monitor($sub_array)
+function get_files($sub_array)
+{
+    for ($i=0; $i < count($sub_array); $i++)
+    { 
+        $url = 'http://193.6.19.58:8182/smarthome/' . $sub_array[$i]->get_home();
+        $json = file_get_contents($url);
+       
+        $monitor_objektum = new Monitor($json);
+        $monitor_array[$i] = $monitor_objektum;
+    }   
+    return $monitor_array;
+}
+ function get_monitor($sub_array, $monitor_array)
  {
-     for ($i=0; $i < count($sub_array); $i++)
-     { 
-         $url = 'http://193.6.19.58:8182/smarthome/' . $sub_array[$i]->get_home();
-         $json = file_get_contents($url);
-        
-         $monitor_objektum = new Monitor($json);
-         $monitor_array[$i] = $monitor_objektum;
-     }   
+  
      for ($i=0; $i < count($sub_array); $i++)
      {
          $monitor = $monitor_array[$i];
