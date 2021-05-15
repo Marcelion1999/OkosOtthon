@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Admin Page</title>
 
     <!-- CSS -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -26,7 +26,6 @@
     <!-- CSS-->
 </head>
 <body>        
-  
 
 <div class="container">
 
@@ -37,39 +36,15 @@
                             <h5 class="card-title"> Controller Interface</h5>
                             <p class="card-text"> 
                                 <div id="controller"> 
-                                <?php 
-                                    $sub_array = array();
-                                    require("subscriber.php");
-                                    require("ILoader.php");
-                                    require("monitor.php"); 
-                                    $monitor_array = array();
-                                    get_monitor($sub_array);
-                                    $value; $monitor_obj; $bojlerállapot; $klímaállapot;
-                                    function get_monitor($sub_array)
-                                    {
-                                        for ($i=0; $i < count($sub_array); $i++)
-                                        { 
-                                            $url = 'http://193.6.19.58:8182/smarthome/' . $sub_array[$i]->get_home();
-                                            $json = file_get_contents($url);
-                                            $monitor_objektum = new Monitor($json);
-                                            $monitor_array[$i] = $monitor_objektum;
-                                        }   
-                                        for ($i=0; $i < count($sub_array); $i++)
-                                        {
-                                            $monitor = $monitor_array[$i];
-                                            if ($monitor_array[$i]->get_boiler() == true) { $bojlerállapot = "Bekapcsolva";}
-                                            else{$bojlerállapot = "Kikapcsolva";}
-                                            if ($monitor_array[$i]->get_air() == true) { $klímaállapot = "Bekapcsolva";}
-                                            else{ $klímaállapot = "Kikapcsolva";}
-                                            echo "Jelentés -> <b>" .  $monitor->get_ID() . "</b><- ". date("h:i:s") . "<br>";
-                                            echo "&nbsp;&nbsp;&nbsp;&nbsp;Bojler állapot: " . $bojlerállapot . "<br>";
-                                            echo "&nbsp;&nbsp;&nbsp;&nbsp;Klíma állapot: " . $klímaállapot  . "<br>";
-                                            echo "&nbsp;&nbsp;&nbsp;&nbsp;Hőmérséklet: " . $monitor->get_temp() . "°C <br>" ;
-                                        } 
-                                    }
-                                    
-                                ?>
-                                </div>
+                                  <?php  require("controller_interface.php"); ?>
+                                <script src="https://write.corbpie.com/wp-content/litespeed/localres/cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                                <script type="text/javascript">
+
+                                    var intervalId = window.setInterval(function(){
+                                      document.getElementById("controller").innerHTML+='<?php write_Data(); ?>' ;
+                                    }, 5000);
+                                   
+                                </script>
                             </p>
                         </div>
                     </div>
