@@ -125,6 +125,54 @@
                 </div>
             </div> <!-- Col-->
         </div> <!-- Row -->
+        <div class="row"> 
+            <div class="col-sm-8">
+                    <div class="card">
+                    <div class="card-body" id="ide">
+                        <h5 class="card-title"> Bojler</h5>
+                        <p class="card-text"> <b> </p>
+                        <p class="card-text"><b> Jelenlegi állapot:</b>  <br>
+                        <div id="controller"> </div>
+                        <script>
+                            
+                            document.write("helobeloteszt");
+                            function write_data(){
+                                document.getElementById("controller").innerHTML+="<br>Helo";
+
+                                setTimeout(write_data, 5000);
+                            }
+
+                            write_data();
+                        const interval = setInterval(function() {
+                                document.getElementById("ide").write("Helo"); // method to be executed;
+                                }, 50);
+                                setInterval();
+                            //clearInterval(interval);
+                        </script>
+                            <?php
+                              $status=TRUE;
+                              function setInterval($f, $milliseconds)
+                              {
+                                     $seconds=(int)$milliseconds/1000;
+                                     while(true)
+                                     {
+                                         $f();
+                                         sleep($seconds);
+                                     }
+                              }
+
+                            
+                              function slep()
+                              {
+                                  echo "Jelenlegi állás:";
+                              }
+                            ?>
+                        </p>
+                    </div>
+                    </div>
+            </div><!-- Col-->
+
+        </div> <!-- Row -->
 
     </div> <!-- Container -->
 
