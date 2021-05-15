@@ -52,7 +52,14 @@
     </header>
 
 
-  
+    <?php 
+    // smrathome/homeId -val kapod meg az adatokat
+    require("monitor.php");
+    $url = 'http://193.6.19.58:8182/smarthome/' . $_SESSION["homeId"];
+    $json = file_get_contents($url);
+    $monitor_obj = new Monitor($json);
+    var_dump($monitor_obj);
+    ?>
 
   <div class="container px-4 py-5" id="custom-cards">
     <h2 class="pb-2 border-bottom"> Üdv: <?php echo $_SESSION["subscriber"]; ?></h2>
@@ -62,8 +69,19 @@
                 <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"> Bojler</h5>
-                    <p class="card-text"> Típus: <?php echo $_SESSION['boilerType']; ?></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text"> <b>Típus:</b>  <?php echo $_SESSION['boilerType']; ?></p>
+                    <p class="card-text"><b>  Állapot</b> 
+                        <?php
+                            if ( $monitor_obj->get_boiler() == true) {
+                                echo "Jelenleg bekapcsolva";
+                            }
+                            else
+                            {
+                                echo "Jelenleg kikapcsolva";
+                            }
+                           
+                         ?>
+                    </p>
                 </div>
                 </div>
             </div><!-- Col-->
@@ -71,8 +89,19 @@
                 <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Klíma</h5>
-                    <p class="card-text">Típus: <?php echo $_SESSION['airConditionerType']; ?></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p class="card-text"><b> Típus: </b> <?php echo $_SESSION['airConditionerType']; ?></p>
+                    <p class="card-text"><b> Állapot</b> 
+                        <?php
+                            if ( $monitor_obj->get_air() == true) {
+                                echo "Jelenleg bekapcsolva";
+                            }
+                            else
+                            {
+                                echo "Jelenleg kikapcsolva";
+                            }
+                           
+                         ?>
+                    </p>
                 </div>
                 </div>
             </div><!-- Col-->
@@ -91,13 +120,17 @@
                         
                         ?> 
                     </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a href="#" class="btn btn-primary">Új érték beállítása</a>
                 </div>
                 </div>
             </div> <!-- Col-->
         </div> <!-- Row -->
 
     </div> <!-- Container -->
+
+    <div>
+
+    </div>
 
     <!-- DO NOT DELETE -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
