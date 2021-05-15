@@ -49,6 +49,7 @@ require("ILoader.php");
                             $_SESSION['boilerType'] = $sub_array[$i]->get_boiler();
                             $_SESSION['airConditionerType'] = $sub_array[$i]->get_air();
                             $_SESSION['temperature'] = $sub_array[$i]->get_temp();
+                            $_SESSION['admin'] = $sub_array;
                             header('location: home.php');
                         }
                     }

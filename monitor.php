@@ -15,12 +15,11 @@ class Monitor{
             $this->airConditionerState= $array["airConditionerState"];
 
     }
-
     public function get_ID() {
-        return $this->session_Id;
+        return $this->sessionId;
     }
     public function get_temp() {
-        return $this->temperatures;
+        return $this->temperature;
     }
     public function get_boiler() {
         return $this->boilerState;

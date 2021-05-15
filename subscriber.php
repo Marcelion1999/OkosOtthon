@@ -8,7 +8,6 @@ class Subscriber{
     public $temperatures;
    
     function __construct($array) {
-        //var_dump($array);
             $this->subscriber = $array["subscriber"];
             $this->homeId = $array["homeId"];
             $this->boilerType = $array["boilerType"];

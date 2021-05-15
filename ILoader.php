@@ -6,5 +6,5 @@
         $obj = new Subscriber($array["subscribers"][$i]);
         array_push($sub_array,$obj);
     }
-
+    $GLOBALS["subscribers"] = $sub_array;
 ?>

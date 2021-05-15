@@ -52,13 +52,20 @@
     </header>
 
 
-    <?php 
-    // smrathome/homeId -val kapod meg az adatokat
-    require("monitor.php");
-    $url = 'http://193.6.19.58:8182/smarthome/' . $_SESSION["homeId"];
-    $json = file_get_contents($url);
-    $monitor_obj = new Monitor($json);
-    var_dump($monitor_obj);
+    <?php
+     require("monitor.php"); 
+     $url = 'http://193.6.19.58:8182/smarthome/' . $_SESSION["homeId"];
+     $json = file_get_contents($url);
+     $monitor_obj = new Monitor($json);
+     function get_json_Data_From_Url()
+     {
+         $url = 'http://193.6.19.58:8182/smarthome/' . $_SESSION["homeId"];
+         $json = file_get_contents($url);
+         return $json;
+     }
+    $json_object = get_json_Data_From_Url();
+    var_dump($json_object);
+
     ?>
 
   <div class="container px-4 py-5" id="custom-cards">
@@ -129,44 +136,38 @@
             <div class="col-sm-8">
                     <div class="card">
                     <div class="card-body" id="ide">
-                        <h5 class="card-title"> Bojler</h5>
-                        <p class="card-text"> <b> </p>
-                        <p class="card-text"><b> Jelenlegi állapot:</b>  <br>
-                        <div id="controller"> </div>
-                        <script>
-                            
-                            document.write("helobeloteszt");
-                            function write_data(){
-                                document.getElementById("controller").innerHTML+="<br>Helo";
+                        <h5 class="card-title"> Controller Interface</h5>
+                        <p class="card-text"> 
+                            <div id="controller"> </div>
+                                <script>
+                                var today = new Date(); var bojlerállapot; var klímaállapot;
 
-                                setTimeout(write_data, 5000);
-                            }
+                                var obj = '<?= get_json_Data_From_Url(); ?>';
+                              
 
-                            write_data();
-                        const interval = setInterval(function() {
-                                document.getElementById("ide").write("Helo"); // method to be executed;
-                                }, 50);
-                                setInterval();
-                            //clearInterval(interval);
-                        </script>
-                            <?php
-                              $status=TRUE;
-                              function setInterval($f, $milliseconds)
-                              {
-                                     $seconds=(int)$milliseconds/1000;
-                                     while(true)
-                                     {
-                                         $f();
-                                         sleep($seconds);
-                                     }
-                              }
+                                function write_data()
+                                {  
+                                    var jsObject = JSON.parse(`<?= json_encode($monitor_obj); ?>`);
+                                    if (jsObject["boilerState"] == true) { bojlerállapot = "Bekapcsolva";}
+                                        else{bojlerállapot = "Kikapcsolva";}
 
-                            
-                              function slep()
-                              {
-                                  echo "Jelenlegi állás:";
-                              }
-                            ?>
+                                    if (jsObject["airConditionerState"] == true) { klímaállapot = "Bekapcsolva";}
+                                        else{ klímaállapot = "Kikapcsolva";}
+
+                                    today = new Date();
+                                    document.getElementById("controller").innerHTML+= "<b>Jelentés -> " +  jsObject["sessionId"] + "<- " +  today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() +  "</b><br><hr>" 
+                                                    + "&nbsp;&nbsp;&nbsp;&nbsp;Bojler állapot: " + bojlerállapot+ "<br>" 
+                                                    + "&nbsp;&nbsp;&nbsp;&nbsp;Klíma állapot: " + klímaállapot  + "<br>" 
+                                                    + "&nbsp;&nbsp;&nbsp;&nbsp;Hőmérséklet: " + jsObject["temperature"]  + "°C <br> <br>" ;
+
+
+                                    setTimeout(write_data, 60000); // ms-ben van, azaz 1000 az 1 mp, 300 000 ms az 5 perc
+                                }
+
+
+                                write_data();
+
+                            </script>
                         </p>
                     </div>
                     </div>
