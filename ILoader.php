@@ -5,7 +5,6 @@
     for ($i=0; $i < count($array["subscribers"]); $i++) { 
         $obj = new Subscriber($array["subscribers"][$i]);
         array_push($sub_array,$obj);
-        echo "</br>";
     }
 
 ?>

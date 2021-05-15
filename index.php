@@ -12,6 +12,7 @@
 </head>
 <body class="text-center">
 <?php 
+session_start();
 $sub_array;
 require("subscriber.php");
 require("ILoader.php");
@@ -23,11 +24,11 @@ require("ILoader.php");
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
             <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
-            <label for="floatingInput">Email address</label>
+            <input type="text" class="form-control" id="floatingInput" placeholder="John Smith" name="user" required>
+            <label for="floatingInput">Username</label>
             </div>
             <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
             <label for="floatingPassword">Password</label>
             </div>
 
@@ -39,9 +40,21 @@ require("ILoader.php");
         </form>
         <?php 
             if (isset($_POST['log_user'])) {
-                echo "ASD"; 
+                for ($i=0; $i < count($sub_array); $i++) { 
+                    if ($_POST["user"] == $sub_array[$i]->get_sub()) {
+                        if ($_POST["password"] == "jelszo") {
+
+                            $_SESSION['subscriber'] = $sub_array[$i]->get_sub();
+                            $_SESSION['homeId'] = $sub_array[$i]->get_home();
+                            $_SESSION['boilerType'] = $sub_array[$i]->get_boiler();
+                            $_SESSION['airConditionerType'] = $sub_array[$i]->get_air();
+                            $_SESSION['temperature'] = $sub_array[$i]->get_temp();
+                            header('location: home.php');
+                        }
+                    }
+                }
                 //var_dump($_POST["email"], $_POST["password"]);
-                //var_dump($sub_array);
+               
             }
         ?>
     </main>

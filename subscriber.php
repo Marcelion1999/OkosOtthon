@@ -16,8 +16,20 @@ class Subscriber{
             $this->temperatures = $array["temperatures"];
     }
 
-    function get_sub() {
+    public function get_sub() {
         return $this->subscriber;
+    }
+    public function get_home() {
+        return $this->homeId;
+    }
+    public function get_boiler() {
+        return $this->boilerType;
+    }
+    public function get_air() {
+        return $this->airConditionerType;
+    }
+    public function get_temp() {
+        return $this->temperatures;
     }
 }
 
