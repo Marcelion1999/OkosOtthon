@@ -27,6 +27,21 @@
 </head>
 <body>        
 
+
+<header class="p-3 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+                </a>
+
+                <div class="text-end">
+                  <button type="button" class="btn btn-warning">Kijelentkezés</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
 <div class="container">
 
   <div class="row">
@@ -39,10 +54,10 @@
                                   <?php  require("controller_interface.php"); ?>
                                 <script src="https://write.corbpie.com/wp-content/litespeed/localres/cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
                                 <script type="text/javascript">
-
+document.getElementById("controller").innerHTML+='<?php write_Data(); ?>'
                                     var intervalId = window.setInterval(function(){
                                       document.getElementById("controller").innerHTML+='<?php write_Data(); ?>' ;
-                                    }, 5000);
+                                    }, 300000);
                                    
                                 </script>
                             </p>

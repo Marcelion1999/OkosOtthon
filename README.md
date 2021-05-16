@@ -14,5 +14,9 @@ Szoftvermodellezés Beadandó
   4. Navigate to the page if you have multiple folders in xampp/htdocs
 
 
+# Fontos:
+  - Admin user -> user: amdin, password: admin
+  - sima user -> user: user Neve, password: jelszo
 ### TO-DO list
     - Regisztráció
+    - 20%-os eltérés kalkulátor + logolás

@@ -31,7 +31,9 @@ require("ILoader.php");
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
             <label for="floatingPassword">Password</label>
             </div>
-
+            <p>
+				Don't have an account ?  <a href="register.php">Register</a>
+			</p>
             <div class="checkbox mb-3">
 
             </div>
@@ -41,9 +43,13 @@ require("ILoader.php");
         <?php 
             if (isset($_POST['log_user'])) {
                 for ($i=0; $i < count($sub_array); $i++) { 
+                    if ($_POST["user"] == "admin") {
+                        if ($_POST["password"] == "admin") {
+                            header('location: admin.php');
+                        }
+                    }
                     if ($_POST["user"] == $sub_array[$i]->get_sub()) {
                         if ($_POST["password"] == "jelszo") {
-
                             $_SESSION['subscriber'] = $sub_array[$i]->get_sub();
                             $_SESSION['homeId'] = $sub_array[$i]->get_home();
                             $_SESSION['boilerType'] = $sub_array[$i]->get_boiler();
