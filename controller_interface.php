@@ -128,20 +128,24 @@ function get_files($sub_array)
         if ($bojler) {
             if ($klima)
             { // bojler és klíma kapcsolás fel
+                echo "<i> Bojlert felkapcsolom - Klímát felkapcsolom </i> <br>";
                 send_Json($url, $boiler_start, $air_start, $cur_user);
             }
             else
             {//bojler igen, air nem
+                echo "<i> Bojlert felkapcsolom - Klímát lekapcsolom </i> <br>";
                 send_Json($url, $boiler_start, $air_stop, $cur_user);
             }
         }
         else{
             if ($klima)
             { //bojler nem, air igen
+                echo "<i> Bojlert lekapcsolom - Klímát felkapcsolom </i> <br>";
                 send_Json($url, $boiler_stop, $air_start, $cur_user);
             }
             else //ULTIMA ELSE ÁG
             { // bojler se, air se
+                echo "<i> Bojlert lekapcsolom - Klímát lekapcsolom </i> <br>";
                 send_Json($url, $boiler_stop, $air_stop, $cur_user);
             }
         }
@@ -154,18 +158,17 @@ function get_files($sub_array)
     {
             echo $cur_user->get_home() . "<br>";
             echo $bojler . "<br>";
-            echo  $klima . "<br>";
+            echo $klima . "<br>";
             $data = array('homeId' => $cur_user->get_home(), 'boilerCommand' => $bojler , 'airConditionerCommand' => $klima);
             $options = array(
                     'http' => array(
                     'header'  => "Content-type: text/Plain\r\n",
                     'method'  => 'POST',
-                    'content' => http_build_query($data),
+                    'content' => json_encode($data),
                 )
             );
-            //echo $options["content"];
         $context  = stream_context_create($options);
-       // print_r($options);
+        //print_r($options);
         $result = file_get_contents($url, true, $context);
         if ($result == 100) {
             echo "Visszakapott kód: " . $result . " -  Sikeresen végrehajtva";
